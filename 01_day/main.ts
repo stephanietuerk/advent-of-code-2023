@@ -1,15 +1,3 @@
-enum Num {
-  one = "one",
-  two = "two",
-  three = "three",
-  four = "four",
-  five = "five",
-  six = "six",
-  seven = "seven",
-  eight = "eight",
-  nine = "nine",
-}
-
 interface Match {
   num: number;
   firstIndex: number;
@@ -17,7 +5,18 @@ interface Match {
 }
 
 const digits = Array.from(Array(10).keys());
-const wordNums = Object.keys(Num);
+const wordNums = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'zero',
+];
 const numMap = new Map();
 wordNums.forEach((num, i) => {
   numMap.set(num, i + 1);
@@ -61,8 +60,8 @@ function sumValues(lines: string[], part: 1 | 2): number {
   }, 0);
 }
 
-const input = await Deno.readTextFile("input.txt");
-const lines = input.split("\n");
+const input = await Deno.readTextFile('input.txt');
+const lines = input.split('\n');
 const part1Sum = sumValues(lines, 1);
 const part2Sum = sumValues(lines, 2);
 console.log(part1Sum);
