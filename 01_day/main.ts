@@ -32,8 +32,8 @@ function getNumberFromString(str: string, stringNums: string[]): number {
   stringNums.forEach((num) => {
     const firstI = str.indexOf(num);
     const lastI = str.lastIndexOf(num);
-    const match = {} as Match;
     if (firstI > -1 || lastI > -1) {
+      const match = {} as Match;
       match.num = numMap.get(num);
       if (firstI > -1) {
         match.firstIndex = firstI;
