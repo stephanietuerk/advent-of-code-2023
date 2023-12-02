@@ -3,5 +3,11 @@
   "deno.lint": true,
   "deno.unstable": false,
   "editor.formatOnSave": true,
-  "[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" }
+  "[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#e02d2d",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveBackground": "#e02d2d",
+    "titleBar.inactiveForeground": "#ffffff"
+  }
 }
