@@ -31,13 +31,11 @@ function getNumberFromString(str: string, stringNums: string[]): number {
   const matches: Match[] = [];
   stringNums.forEach((num) => {
     const firstI = str.indexOf(num);
-    const lastI = str.lastIndexOf(num);
-    if (firstI > -1 || lastI > -1) {
+    if (firstI > -1) {
       const match = {} as Match;
       match.num = numMap.get(num);
-      if (firstI > -1) {
-        match.firstIndex = firstI;
-      }
+      match.firstIndex = firstI;
+      const lastI = str.lastIndexOf(num);
       if (lastI > -1) {
         match.lastIndex = lastI;
       }
@@ -51,10 +49,9 @@ function getNumberFromString(str: string, stringNums: string[]): number {
   return Number(`${firstNumber}${lastNumber}`);
 }
 
-function sumValues(lines: string[], part: 1 | 2): number {
-  const stringNums = part === 1 ? part1StringNums : part2StringNums;
+function sumValues(lines: string[], stringToMatch: string[]): number {
   return lines.reduce((sum, line) => {
-    const val = getNumberFromString(line, stringNums);
+    const val = getNumberFromString(line, stringToMatch);
     sum += val;
     return sum;
   }, 0);
@@ -62,7 +59,7 @@ function sumValues(lines: string[], part: 1 | 2): number {
 
 const input = await Deno.readTextFile('input.txt');
 const lines = input.split('\n');
-const part1Sum = sumValues(lines, 1);
-const part2Sum = sumValues(lines, 2);
+const part1Sum = sumValues(lines, part1StringNums);
+const part2Sum = sumValues(lines, part2StringNums);
 console.log(part1Sum);
 console.log(part2Sum);
