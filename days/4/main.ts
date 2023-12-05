@@ -27,13 +27,8 @@ function solvePart1(): void {
 
 solvePart1();
 
-interface CardTally {
-  matches: number;
-  copiedCardsIndicies: number[];
-}
-
 function solvePart2(): void {
-  const cardTallies: CardTally[] = [];
+  const cardCopies: number[][] = [];
   const total = lines.reduce((count, line, cardIndex) => {
     const numMatches = getNumMatches(line);
     let copies = [];
@@ -41,22 +36,17 @@ function solvePart2(): void {
       copies.push(cardIndex + 1 + i);
     }
     if (numMatches > 0 && cardIndex > 0) {
-      const prevCards = cardTallies.slice(0, cardIndex);
+      const prevCards = cardCopies.slice(0, cardIndex);
       const numCopies = prevCards.reduce((numCopies, cur) => {
-        numCopies += cur.copiedCardsIndicies.filter((x) => x === cardIndex)
+        numCopies += cur.filter((x) => x === cardIndex)
           ?.length;
         return numCopies ?? 0;
       }, 0);
       copies = copies.concat(
         Array(numCopies).fill(copies),
-      )
-        .flat();
+      ).flat();
     }
-    const tally = {
-      matches: numMatches,
-      copiedCardsIndicies: copies,
-    };
-    cardTallies.push(tally);
+    cardCopies.push(copies);
     count += 1 + copies.length;
     return count;
   }, 0);
