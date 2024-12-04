@@ -29,27 +29,38 @@ solvePart1();
 
 function solvePart2(): void {
   const cardCopies: number[][] = [];
+  const cardCounts: number[] = [];
   const total = lines.reduce((count, line, cardIndex) => {
     const numMatches = getNumMatches(line);
     let copies = [];
     for (let i = 0; i < numMatches; i++) {
-      copies.push(cardIndex + 1 + i);
+      const nextIndex = cardIndex + 1 + i;
+      copies.push(nextIndex);
     }
     if (numMatches > 0 && cardIndex > 0) {
       const prevCards = cardCopies.slice(0, cardIndex);
-      const numCopies = prevCards.reduce((numCopies, cur) => {
-        numCopies += cur.filter((x) => x === cardIndex)
-          ?.length;
-        return numCopies ?? 0;
-      }, 0);
+      const numCopies = prevCards.filter((numArr) => numArr.includes(cardIndex))
+        .reduce((numCopies, cur) => {
+          numCopies += cur.filter((x) => x === cardIndex)
+            ?.length;
+          return numCopies ?? 0;
+        }, 0);
+      const numCopies2 = cardCounts[cardIndex];
       copies = copies.concat(
         Array(numCopies).fill(copies),
       ).flat();
+      copies.forEach((copyIndex, i) => {
+        cardCounts[copyIndex] += numCopies2 + 1;
+      });
     }
     cardCopies.push(copies);
     count += 1 + copies.length;
     return count;
   }, 0);
+  console.log(cardCounts.reduce((acc, cur) => {
+    acc += cur;
+    return acc;
+  }, 0));
   console.log(total);
 }
 
